@@ -12,25 +12,42 @@ class Game {
     // los tubos (y todas sus propiedades)
     // velocidad de los elementos
 
+    this.isGameOn = true;
     // el score (BONUS)
   }
 
   // .todos los metodos del juego (ej: las funciones que teniamos ayer en el pong)
 
+  pollitoFloorCollision = () => {
+    if (this.pollito.y + this.pollito.h > canvas.height) {
+      console.log("El pollito llegó al suelo")
+      // ok, el juego se termina. isGameOn = false
+      this.isGameOn = false
+    }
+  }
+
   gameLoop = () => {
-    console.log("juego andando");
+    // console.log("juego andando");
     // 1. Limpiamos el canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // 2. Movimientos y acciones de los elementos
     this.pollito.pollitoGravity()
+    this.pollitoFloorCollision()
+    // let collitionCheck = this.pollito.pollitoFloorCollision()
+    // if (collitionCheck === true) {
+    //   this.isGameOn = false
+    // }
+    // this.isGameOn = this.pollito.pollitoFloorCollision()
 
     // 3. Dibujar los elementos
     ctx.drawImage(this.bg, 0, 0, canvas.width, canvas.height);
     this.pollito.drawPollito()
 
     // 4. Efecto de recursión
-    requestAnimationFrame(this.gameLoop);
+    if (this.isGameOn === true) {
+      requestAnimationFrame(this.gameLoop);
+    }
   };
 
   
