@@ -16,9 +16,43 @@ class Game {
 
     this.isGameOn = true;
     // el score (BONUS)
+    this.isGamePaused = false;
   }
 
   // .todos los metodos del juego (ej: las funciones que teniamos ayer en el pong)
+
+  // BONUS para limpiar el array cuando los elementos salen del canvas
+  removePipesFromArray = () => {
+    console.log(this.pipeArr.length)
+    if (this.pipeArr[0].x  + this.pipeArr[0].w < 0) {
+      this.pipeArr.shift()
+    }
+  }
+
+  // efecto de gameover
+  gameOver = () => {
+    this.isGameOn = false;
+    canvas.style.display = "none"
+    gameoverScreenDOM.style.display = "flex"
+  }
+
+  // colision pollo tube
+  pollitoPipeCollision = () => {
+    this.pipeArr.forEach((eachPipe) => {
+      // checkeamos cada uno de los pipes está colisionando con el pollito
+      // eachPipe
+      // this.pollito
+      if (eachPipe.x < this.pollito.x + this.pollito.w &&
+        eachPipe.x + eachPipe.w > this.pollito.x &&
+        eachPipe.y < this.pollito.y + this.pollito.h &&
+        eachPipe.h + eachPipe.y > this.pollito.y) {
+        // collision detected!
+        console.log("COLLISION")
+        this.gameOver()
+    }
+
+    })
+  }
 
   // los tubos aleatorios (cuando apareceran ) Spawn
   automaticAddPipes = () => {
@@ -40,12 +74,11 @@ class Game {
     }
   }
 
-
   pollitoFloorCollision = () => {
     if (this.pollito.y + this.pollito.h > canvas.height) {
       console.log("El pollito llegó al suelo")
       // ok, el juego se termina. isGameOn = false
-      this.isGameOn = false
+      this.gameOver()
     }
   }
 
@@ -57,6 +90,7 @@ class Game {
     // 2. Movimientos y acciones de los elementos
     this.pollito.pollitoGravity()
     this.pollitoFloorCollision()
+    this.pollitoPipeCollision()
     // let collitionCheck = this.pollito.pollitoFloorCollision()
     // if (collitionCheck === true) {
     //   this.isGameOn = false
@@ -67,6 +101,8 @@ class Game {
     this.pipeArr.forEach((eachPipe) => {
       eachPipe.pipeMovement()
     })
+    this.removePipesFromArray()
+    this.pollito.pollitoBetterJump() // BONUS 3
 
     // 3. Dibujar los elementos
     ctx.drawImage(this.bg, 0, 0, canvas.width, canvas.height);
@@ -77,15 +113,15 @@ class Game {
     })
 
     // 4. Efecto de recursión
-    if (this.isGameOn === true) {
+    if (this.isGameOn === true && this.isGamePaused === false) {
       requestAnimationFrame(this.gameLoop);
     }
   };
 
   
-  // colision pollo tube
   
-  // efecto de gameover
+  
+  
   
 
   // boton de Pausa (MEGA BONUS)
