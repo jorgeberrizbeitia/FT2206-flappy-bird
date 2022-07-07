@@ -9,6 +9,8 @@ class Game {
     this.bg.src = "./images/bg.png";
     // el pollo (y todas sus propiedades)
     this.pollito = new Pollito() // aqui creo un nuevo OBJ de la clase Pollito
+    // this.pipe = new Pipe()
+    this.pipeArr = []
     // los tubos (y todas sus propiedades)
     // velocidad de los elementos
 
@@ -17,6 +19,17 @@ class Game {
   }
 
   // .todos los metodos del juego (ej: las funciones que teniamos ayer en el pong)
+
+  // los tubos aleatorios (cuando apareceran ) Spawn
+  automaticAddPipes = () => {
+    if (this.pipeArr.length === 0 || this.pipeArr[this.pipeArr.length - 1].x < canvas.width / 2) {
+      // 1. si el array está vacio
+      // 2. si el ULTIMO elemento del array, ha pasado la mitad del canvas
+      let newPipe = new Pipe()
+      this.pipeArr.push(newPipe)
+    }
+  }
+
 
   pollitoFloorCollision = () => {
     if (this.pollito.y + this.pollito.h > canvas.height) {
@@ -39,10 +52,19 @@ class Game {
     //   this.isGameOn = false
     // }
     // this.isGameOn = this.pollito.pollitoFloorCollision()
+    this.automaticAddPipes()
+    // this.pipeArr.pipeMovement()
+    this.pipeArr.forEach((eachPipe) => {
+      eachPipe.pipeMovement()
+    })
 
     // 3. Dibujar los elementos
     ctx.drawImage(this.bg, 0, 0, canvas.width, canvas.height);
     this.pollito.drawPollito()
+    // this.pipe.drawPipe()
+    this.pipeArr.forEach((eachPipe) => {
+      eachPipe.drawPipe()
+    })
 
     // 4. Efecto de recursión
     if (this.isGameOn === true) {
@@ -54,7 +76,7 @@ class Game {
   // colision pollo tube
   
   // efecto de gameover
-  // los tubos aleatorios (cuando apareceran ) Spawn
+  
 
   // boton de Pausa (MEGA BONUS)
 }
