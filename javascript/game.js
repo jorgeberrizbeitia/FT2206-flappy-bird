@@ -23,6 +23,7 @@ class Game {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // 2. Movimientos y acciones de los elementos
+    this.pollito.pollitoGravity()
 
     // 3. Dibujar los elementos
     ctx.drawImage(this.bg, 0, 0, canvas.width, canvas.height);
@@ -34,7 +35,7 @@ class Game {
 
   
   // colision pollo tube
-  // colision pollo suelo
+  
   // efecto de gameover
   // los tubos aleatorios (cuando apareceran ) Spawn
 

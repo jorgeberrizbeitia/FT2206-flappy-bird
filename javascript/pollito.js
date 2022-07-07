@@ -17,7 +17,12 @@ class Pollito {
   }
 
   // gravedad del pollo
+  pollitoGravity = () => {
+    this.y = this.y + this.speed
+  }
   
   // salto del pollo
+
+  // colision pollo suelo
 
 }
