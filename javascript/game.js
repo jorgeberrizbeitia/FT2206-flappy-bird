@@ -25,8 +25,18 @@ class Game {
     if (this.pipeArr.length === 0 || this.pipeArr[this.pipeArr.length - 1].x < canvas.width / 2) {
       // 1. si el array está vacio
       // 2. si el ULTIMO elemento del array, ha pasado la mitad del canvas
-      let newPipe = new Pipe()
-      this.pipeArr.push(newPipe)
+
+      let randomPositionYUp = Math.random() * -200
+
+      let newPipeUp = new Pipe(randomPositionYUp, "./images/obstacle_top.png")
+      this.pipeArr.push(newPipeUp)
+
+      let distanceBetweenPipes = newPipeUp.h + 100
+      let randomPositionYDown = randomPositionYUp + distanceBetweenPipes
+
+      let newPipeDown = new Pipe(randomPositionYDown, "./images/obstacle_bottom.png")
+      this.pipeArr.push(newPipeDown)
+
     }
   }
 

@@ -1,12 +1,12 @@
 class Pipe {
-  constructor() {
+  constructor(yParam, srcParam) {
     // aqui todas las propiedades de los tubos
     this.image = new Image();
-    this.image.src = "./images/obstacle_top.png";
+    this.image.src = srcParam;
     this.x = canvas.width;
-    this.y = 0;
+    this.y = yParam;
     this.w = 50;
-    this.h = canvas.height * 0.4;
+    this.h = canvas.height * 0.7;
     this.speed = 3;
   }
 
