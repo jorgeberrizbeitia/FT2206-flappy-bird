@@ -19,8 +19,11 @@ const startGame = () => {
   // ... aqui es donde deberia iniciar el juego.
   const game = new Game()
   console.log(game)
+  game.gameLoop()
 };
 
 // * ADD EVENT LISTENERS
 
 startBtn.addEventListener("click", startGame);
+
+// addeventlistener para manejar el pollo.  
